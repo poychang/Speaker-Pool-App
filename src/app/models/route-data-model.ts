@@ -1,0 +1,3 @@
+class RouteData {
+  breadcrumb: Breadcrumb[];
+}

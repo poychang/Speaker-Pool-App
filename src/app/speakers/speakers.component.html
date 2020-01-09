@@ -1,0 +1,53 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+
+
+<section class="is-info is-small">
+    <div class="row columns">
+        <div class="column">
+            <div class="field is-pulled-right">
+                <input id="detail" type="checkbox" class="switch is-rounded" [checked]="isShowDetail" (click)="switchShowDetail()">
+                <label for="detail">Detail</label>
+            </div>
+        </div>
+    </div>
+    <div class="row columns is-multiline is-desktop">
+        <div class="column is-one-third" *ngFor="let s of speakers; trackBy:name">
+            <div class="card large">
+                <div class="card-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <figure class="image is-96x96">
+                                <img class="is-rounded" [src]="s.headPicture" alt="Image">
+                            </figure>
+                        </div>
+                        <div class="media-content">
+                            <p class="title is-4 no-padding">{{ s.name }}</p>
+                            <p class="subtitle is-6 no-padding">{{ s.subtitle }}</p>
+                        </div>
+                    </div>
+                    <div class="content">
+                        <p class="no-padding"><strong>演講領域</strong></p>
+                        <p class="tags no-padding">
+                            <span *ngFor="let domain of s.domain" class="tag is-rounded"
+                                [ngClass]="{'is-primary': domain.isPrimary}">{{ domain.name }}</span>
+                        </p>
+                    </div>
+                    <div class="content" *ngIf="isShowDetail">
+                        <p class="no-padding"><strong>個人介紹</strong></p>
+                        <p class="no-padding">{{ s.introduction }}</p>
+                    </div>
+                    <div class="content" *ngIf="isShowDetail">
+                        <p class="no-padding"><strong>經歷</strong></p>
+                        <ul>
+                            <li *ngFor="let experience of s.experience">{{ experience }}</li>
+                        </ul>
+                    </div>
+                    <div class="content">
+                        <p class="no-padding"><strong>備註</strong></p>
+                        <p class="no-padding">{{ s.remark }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

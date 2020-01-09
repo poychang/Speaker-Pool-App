@@ -1,0 +1,7 @@
+<nav class="breadcrumb" aria-label="breadcrumbs">
+    <ul>
+        <li *ngFor="let b of breadcrumb" [ngClass]="{'is-active': b.isActive}">
+            <a ng-href="b.url">{{b.name}}</a>
+        </li>
+    </ul>
+</nav>
