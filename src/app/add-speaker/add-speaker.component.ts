@@ -9,6 +9,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class AddSpeakerComponent implements OnInit {
   breadcrumb: Breadcrumb[];
+  avatarImage = './assets/images/unknown-avatar.jpg';
+  fileToUpload: File = null;
   newSpeakerForm: FormGroup;
 
   constructor(private route: ActivatedRoute) {
@@ -30,9 +32,23 @@ export class AddSpeakerComponent implements OnInit {
     });
   }
 
-  public addSkill = () => {};
+  public handleFileInput(files: FileList) {
+    this.fileToUpload = files.item(0);
+  }
+
+  public addSkill = () => {
+    const skill = this.newSpeakerForm.get('skill').value as string;
+    const skills = this.newSpeakerForm.get('skills').value as string[];
+    this.newSpeakerForm.get('skill').setValue('');
+
+    if (skills.find(s => s === skill) || skill === '') {
+      return;
+    } else {
+      this.newSpeakerForm.get('skills').setValue([...skills, skill]);
+    }
+  }
 
   public onSubmit = () => {
-    console.log();
-  };
+    console.log(this.newSpeakerForm.value);
+  }
 }

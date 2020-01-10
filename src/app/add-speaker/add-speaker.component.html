@@ -11,8 +11,6 @@
                 </header>
                 <div class="card-content">
                     <form [formGroup]="newSpeakerForm" class="content" (ngSubmit)="onSubmit()">
-                        {{ domain | json }}
-                        {{ newSpeakerForm.value | json }}
                         <div class="field is-horizontal">
                             <div class="field-label is-normal">
                                 <label class="label">Avatar</label>
@@ -21,13 +19,13 @@
                                 <div class="field">
                                     <div class="row">
                                         <figure class="image is-128x128">
-                                            <img class="is-rounded" [src]="(avatar ? avatar : './assets/images/unknown-avatar.jpg')">
+                                            <img class="is-rounded" [src]="avatarImage">
                                         </figure>
                                     </div>
                                     <div class="row file">
                                         <label class="file-label">
                                             <input class="file-input" type="file" name="avatar-file"
-                                                formControlName="avatar">
+                                                formControlName="avatar" (change)="handleFileInput($event.target.files)">
                                             <span class="file-cta">
                                                 <span class="file-icon">
                                                     <i class="fa fa-upload"></i>
@@ -78,11 +76,11 @@
                                         <input class="input" type="text" placeholder="Add Tag" formControlName="skill">
                                     </p>
                                     <p class="control">
-                                        <button class="button" (click)="addSkill()">Add</button>
+                                        <button class="button" type="button" (click)="addSkill()">Add</button>
                                     </p>
                                     <p class="control tags-result">
                                         <span class="tag is-rounded is-primary is-medium"
-                                            *ngFor="let skill of skills">{{ skill }}</span>
+                                            *ngFor="let skill of newSpeakerForm.value.skills">{{ skill }}</span>
                                     </p>
                                 </div>
                             </div>

@@ -1,6 +1,5 @@
 <app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
 
-
 <section class="is-info is-small">
     <div class="row columns">
         <div class="column">
@@ -12,37 +11,38 @@
         </div>
     </div>
     <div class="row columns is-multiline is-desktop">
-        <div class="column is-one-third" *ngFor="let s of speakers; trackBy:name">
+        <div class="column is-one-third" *ngFor="let speaker of speakers">
             <div class="card large">
                 <div class="card-content">
                     <div class="media">
                         <div class="media-left">
                             <figure class="image is-96x96">
-                                <img class="is-rounded" [src]="s.avatar" alt="Image">
+                                <img class="is-rounded" [src]="speaker.avatar" alt="Image">
                             </figure>
                         </div>
                         <div class="media-content">
-                            <p class="title is-4 no-padding">{{ s.name }}</p>
-                            <p class="subtitle is-6 no-padding">{{ s.subtitle }}</p>
+                            <p class="title is-4 no-padding">{{ speaker.name }}</p>
+                            <p class="subtitle is-6 no-padding">{{ speaker.subtitle }}</p>
                         </div>
                     </div>
                     <div class="content">
                         <p class="no-padding"><strong>演講領域</strong></p>
                         <p class="tags no-padding">
-                            <span *ngFor="let skill of s.skills" class="tag is-rounded is-primary is-medium">{{ skill }}</span>
+                            <span *ngFor="let skill of speaker.skills"
+                                class="tag is-rounded is-primary is-medium">{{ skill }}</span>
                         </p>
                     </div>
                     <div class="content" *ngIf="isShowDetail">
                         <p class="no-padding"><strong>個人介紹</strong></p>
-                        <p class="no-padding">{{ s.introduction }}</p>
+                        <p class="no-padding">{{ speaker.introduction }}</p>
                     </div>
                     <div class="content" *ngIf="isShowDetail">
                         <p class="no-padding"><strong>經歷</strong></p>
-                        <p class="no-padding">{{ s.experience }}</p>
+                        <p class="no-padding">{{ speaker.experience }}</p>
                     </div>
-                    <div class="content">
+                    <div class="content" *ngIf="isShowDetail">
                         <p class="no-padding"><strong>備註</strong></p>
-                        <p class="no-padding">{{ s.remark }}</p>
+                        <p class="no-padding">{{ speaker.remark }}</p>
                     </div>
                 </div>
             </div>

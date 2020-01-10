@@ -14,3 +14,6 @@ trim_trailing_whitespace = false
 
 [*.{js,ts}]
 quote_type = single
+
+[*.html]
+indent_size = 4

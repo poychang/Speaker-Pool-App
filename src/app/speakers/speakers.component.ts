@@ -1,16 +1,16 @@
-import { Component, OnInit } from "@angular/core";
-import { SpeakerService } from "../services/speaker.service";
-import { ActivatedRoute } from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { SpeakerService } from '../services/speaker.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: "app-speakers",
-  templateUrl: "./speakers.component.html",
-  styleUrls: ["./speakers.component.scss"]
+  selector: 'app-speakers',
+  templateUrl: './speakers.component.html',
+  styleUrls: ['./speakers.component.scss']
 })
 export class SpeakersComponent implements OnInit {
   breadcrumb: Breadcrumb[];
   speakers: Speaker[];
-  isShowDetail: boolean = false;
+  isShowDetail = false;
 
   constructor(
     private route: ActivatedRoute,
