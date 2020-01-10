@@ -1,24 +1,26 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class SideMenuService {
-  private slideMenuList: SideMenuItem[] = [
-    { name: "Dashboard", url: "/dashboard", isActive: true } as SideMenuItem,
-    { name: "Speakers", url: "/speakers", isActive: false } as SideMenuItem,
-    { name: "Management", url: "/management", isActive: false } as SideMenuItem
+  private slideMenu: SideMenu[] = [
+    {
+      name: 'General',
+      sideMenuItem: [
+        { name: 'Dashboard', url: '/dashboard' },
+        { name: 'Speakers', url: '/speakers' }
+      ]
+    },
+    {
+      name: 'Management',
+      sideMenuItem: [
+        { name: 'Add Speaker', url: '/add-speaker' }
+      ]
+    }
   ];
 
   constructor() {}
 
-  public getSideMenu = () => this.slideMenuList;
-
-  public setSideMenu = (slideMenuItem: SideMenuItem) => {
-    let target = this.slideMenuList.find(m => m.name == slideMenuItem.name);
-    if (target) {
-      this.slideMenuList.map(m => (m.isActive = false));
-      target.isActive = true;
-    }
-  };
+  public getSideMenu = () => this.slideMenu;
 }

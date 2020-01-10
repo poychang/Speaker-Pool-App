@@ -1,3 +1,3 @@
-class RouteData {
+interface RouteData {
   breadcrumb: Breadcrumb[];
 }

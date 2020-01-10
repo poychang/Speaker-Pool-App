@@ -1,10 +1,12 @@
 <aside class="menu is-hidden-mobile">
-    <p class="menu-label">
-        General
-    </p>
-    <ul class="menu-list">
-        <li *ngFor="let m of slideMenuList">
-            <a (click)="clickMenuItem(m)" [routerLink]="m.url" [ngClass]="{'is-active': m.isActive}">{{m.name}}</a>
-        </li>
-    </ul>
+    <div *ngFor="let m of slideMenuList">
+        <p class="menu-label">
+            {{ m.name }}
+        </p>
+        <ul class="menu-list">
+            <li *ngFor="let i of m.sideMenuItem">
+                <a [routerLink]="i.url">{{ i.name }}</a>
+            </li>
+        </ul>
+    </div>
 </aside>

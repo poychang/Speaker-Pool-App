@@ -1,0 +1,150 @@
+<app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+
+<section class="is-info is-small">
+    <div class="row columns is-desktop">
+        <div class="column">
+            <div class="card large">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        Adding Speaker Information
+                    </p>
+                </header>
+                <div class="card-content">
+                    <form [formGroup]="newSpeakerForm" class="content" (ngSubmit)="onSubmit()">
+                        {{ domain | json }}
+                        {{ newSpeakerForm.value | json }}
+                        <div class="field is-horizontal">
+                            <div class="field-label is-normal">
+                                <label class="label">Avatar</label>
+                            </div>
+                            <div class="field-body">
+                                <div class="field">
+                                    <div class="row">
+                                        <figure class="image is-128x128">
+                                            <img class="is-rounded" [src]="(avatar ? avatar : './assets/images/unknown-avatar.jpg')">
+                                        </figure>
+                                    </div>
+                                    <div class="row file">
+                                        <label class="file-label">
+                                            <input class="file-input" type="file" name="avatar-file"
+                                                formControlName="avatar">
+                                            <span class="file-cta">
+                                                <span class="file-icon">
+                                                    <i class="fa fa-upload"></i>
+                                                </span>
+                                                <span class="file-label">
+                                                    Choose a file…
+                                                </span>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field is-horizontal">
+                            <div class="field-label is-normal">
+                                <label class="label"><span style="color:red">*</span>Name</label>
+                            </div>
+                            <div class="field-body">
+                                <div class="field">
+                                    <p class="control">
+                                        <input class="input" type="text" placeholder="" formControlName="name">
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field is-horizontal">
+                            <div class="field-label is-normal">
+                                <label class="label">Subtitle</label>
+                            </div>
+                            <div class="field-body">
+                                <div class="field">
+                                    <p class="control">
+                                        <input class="input" type="text" placeholder="" formControlName="subtitle">
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field is-horizontal">
+                            <div class="field-label is-normal">
+                                <label class="label"><span style="color:red">*</span>Skills</label>
+                            </div>
+                            <div class="field-body">
+                                <div class="field has-addons">
+                                    <p class="control">
+                                        <input class="input" type="text" placeholder="Add Tag" formControlName="skill">
+                                    </p>
+                                    <p class="control">
+                                        <button class="button" (click)="addSkill()">Add</button>
+                                    </p>
+                                    <p class="control tags-result">
+                                        <span class="tag is-rounded is-primary is-medium"
+                                            *ngFor="let skill of skills">{{ skill }}</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field is-horizontal">
+                            <div class="field-label is-normal">
+                                <label class="label">Introduction</label>
+                            </div>
+                            <div class="field-body">
+                                <div class="field">
+                                    <p class="control">
+                                        <textarea class="textarea" rows="3" placeholder=""
+                                            formControlName="introduction"></textarea>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field is-horizontal">
+                            <div class="field-label is-normal">
+                                <label class="label">Experience</label>
+                            </div>
+                            <div class="field-body">
+                                <div class="field">
+                                    <p class="control">
+                                        <textarea class="textarea" rows="3" placeholder=""
+                                            formControlName="experience"></textarea>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field is-horizontal">
+                            <div class="field-label is-normal">
+                                <label class="label">Remark</label>
+                            </div>
+                            <div class="field-body">
+                                <div class="field">
+                                    <p class="control">
+                                        <textarea class="textarea" rows="3" placeholder=""
+                                            formControlName="remark"></textarea>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field is-horizontal">
+                            <div class="field-label is-normal">
+                            </div>
+                            <div class="field-body">
+                                <div class="field">
+                                    <div class="buttons">
+                                        <button class="button is-success" type="submit"
+                                            [disabled]="!newSpeakerForm.valid">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

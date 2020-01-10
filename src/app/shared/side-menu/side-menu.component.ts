@@ -7,15 +7,11 @@ import { SideMenuService } from "src/app/services/side-menu.service";
   styleUrls: ["./side-menu.component.scss"]
 })
 export class SideMenuComponent implements OnInit {
-  slideMenuList: SideMenuItem[];
+  slideMenuList: SideMenu[];
 
   constructor(private sideMenuService: SideMenuService) {}
 
   ngOnInit() {
     this.slideMenuList = this.sideMenuService.getSideMenu();
   }
-
-  public clickMenuItem = (slideMenuItem: SideMenuItem) => {
-    this.sideMenuService.setSideMenu(slideMenuItem)
-  };
 }

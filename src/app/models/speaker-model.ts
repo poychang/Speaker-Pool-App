@@ -1,14 +1,9 @@
-class Speaker {
-  headPicture: string;
+interface Speaker {
+  avatar: string;
   name: string;
   subtitle: string;
-  domain: Domain[];
+  skills: string[];
   introduction: string;
-  experience: string[];
-  remarks: string;
-}
-
-class Domain {
-  name: string;
-  isPrimary: boolean;
+  experience: string;
+  remark: string;
 }

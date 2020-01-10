@@ -5,7 +5,8 @@
     <div class="row columns">
         <div class="column">
             <div class="field is-pulled-right">
-                <input id="detail" type="checkbox" class="switch is-rounded" [checked]="isShowDetail" (click)="switchShowDetail()">
+                <input id="detail" type="checkbox" class="switch is-rounded" [checked]="isShowDetail"
+                    (click)="switchShowDetail()">
                 <label for="detail">Detail</label>
             </div>
         </div>
@@ -17,7 +18,7 @@
                     <div class="media">
                         <div class="media-left">
                             <figure class="image is-96x96">
-                                <img class="is-rounded" [src]="s.headPicture" alt="Image">
+                                <img class="is-rounded" [src]="s.avatar" alt="Image">
                             </figure>
                         </div>
                         <div class="media-content">
@@ -28,8 +29,7 @@
                     <div class="content">
                         <p class="no-padding"><strong>演講領域</strong></p>
                         <p class="tags no-padding">
-                            <span *ngFor="let domain of s.domain" class="tag is-rounded"
-                                [ngClass]="{'is-primary': domain.isPrimary}">{{ domain.name }}</span>
+                            <span *ngFor="let skill of s.skills" class="tag is-rounded is-primary is-medium">{{ skill }}</span>
                         </p>
                     </div>
                     <div class="content" *ngIf="isShowDetail">
@@ -38,9 +38,7 @@
                     </div>
                     <div class="content" *ngIf="isShowDetail">
                         <p class="no-padding"><strong>經歷</strong></p>
-                        <ul>
-                            <li *ngFor="let experience of s.experience">{{ experience }}</li>
-                        </ul>
+                        <p class="no-padding">{{ s.experience }}</p>
                     </div>
                     <div class="content">
                         <p class="no-padding"><strong>備註</strong></p>
