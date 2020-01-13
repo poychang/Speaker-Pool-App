@@ -21,4 +21,8 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SpeakerPoolApp.Core\SpeakerPoolApp.Core.csproj" />
+  </ItemGroup>
+
 </Project>

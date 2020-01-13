@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SpeakerPoolApp.Core.Services;
 
 namespace SpeakerPoolApp
 {
@@ -19,6 +20,7 @@ namespace SpeakerPoolApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddSingleton<ISpeakerService, SpeakerService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

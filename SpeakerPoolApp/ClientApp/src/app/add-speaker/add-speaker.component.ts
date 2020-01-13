@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { SpeakerService } from '../services/speaker.service';
 
 @Component({
   selector: 'app-add-speaker',
@@ -13,7 +14,10 @@ export class AddSpeakerComponent implements OnInit {
   fileToUpload: File = null;
   newSpeakerForm: FormGroup;
 
-  constructor(private route: ActivatedRoute) {
+  constructor(
+    private route: ActivatedRoute,
+    private speakerService: SpeakerService
+  ) {
     this.newSpeakerForm = new FormGroup({
       avatar: new FormControl(''),
       name: new FormControl('', [Validators.required]),
@@ -21,7 +25,7 @@ export class AddSpeakerComponent implements OnInit {
       skill: new FormControl(''),
       skills: new FormControl([], [Validators.required]),
       introduction: new FormControl(''),
-      experience: new FormControl(''),
+      experience: new FormControl([]),
       remark: new FormControl('')
     });
   }
@@ -46,9 +50,12 @@ export class AddSpeakerComponent implements OnInit {
     } else {
       this.newSpeakerForm.get('skills').setValue([...skills, skill]);
     }
-  }
+  };
 
   public onSubmit = () => {
     console.log(this.newSpeakerForm.value);
-  }
+    this.speakerService
+      .addSpeaker(this.newSpeakerForm.value as Speaker)
+      .subscribe();
+  };
 }
