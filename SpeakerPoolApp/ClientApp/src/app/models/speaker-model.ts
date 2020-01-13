@@ -4,6 +4,6 @@ interface Speaker {
   subtitle: string;
   skills: string[];
   introduction: string;
-  experience: string;
+  experience: string[];
   remark: string;
 }

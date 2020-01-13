@@ -37,13 +37,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    component: DashboardComponent,
-    data: {
-      breadcrumb: [
-        { name: 'Speaker Pool', url: '#', isActive: false },
-        { name: 'Dashboard', url: '#', isActive: true }
-      ]
-    } as RouteData
+    redirectTo: '/'
   }
 ];
 

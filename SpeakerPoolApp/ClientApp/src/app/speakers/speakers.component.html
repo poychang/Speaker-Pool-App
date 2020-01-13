@@ -11,7 +11,7 @@
         </div>
     </div>
     <div class="row columns is-multiline is-desktop">
-        <div class="column is-one-third" *ngFor="let speaker of speakers">
+        <div class="column is-one-third" *ngFor="let speaker of speakers | async">
             <div class="card large">
                 <div class="card-content">
                     <div class="media">
@@ -38,7 +38,11 @@
                     </div>
                     <div class="content" *ngIf="isShowDetail">
                         <p class="no-padding"><strong>經歷</strong></p>
-                        <p class="no-padding">{{ speaker.experience }}</p>
+                        <p class="tags no-padding">
+                            <span *ngFor="let experience of speaker.experience"
+                                class="tag is-rounded is-primary is-medium">{{ experience }}</span>
+                        </p>
+                        <!-- <p class="no-padding">{{ speaker.experience }}</p> -->
                     </div>
                     <div class="content" *ngIf="isShowDetail">
                         <p class="no-padding"><strong>備註</strong></p>

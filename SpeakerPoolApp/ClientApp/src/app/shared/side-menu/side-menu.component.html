@@ -5,7 +5,7 @@
         </p>
         <ul class="menu-list">
             <li *ngFor="let i of m.sideMenuItem">
-                <a [routerLink]="i.url">{{ i.name }}</a>
+                <a [routerLink]="i.url" routerLinkActive="is-active">{{ i.name }}</a>
             </li>
         </ul>
     </div>

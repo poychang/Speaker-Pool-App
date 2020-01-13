@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SpeakerService } from '../services/speaker.service';
 import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-speakers',
@@ -9,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class SpeakersComponent implements OnInit {
   breadcrumb: Breadcrumb[];
-  speakers: Speaker[];
+  speakers: Observable<Speaker[]>;
   isShowDetail = false;
 
   constructor(
