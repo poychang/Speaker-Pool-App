@@ -1,77 +1,137 @@
 ﻿using SpeakerPoolApp.Core.Models;
+using SpeakerPoolApp.Data;
+using SpeakerPoolApp.Data.Repository;
+using SpeakerPoolApp.Data.Schema;
+using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace SpeakerPoolApp.Core.Services
 {
     public class SpeakerService : ISpeakerService
     {
-        private List<Speaker> SpeakerList = new List<Speaker>
-            {
-                new Speaker{
-                    Avatar = "https://i.imgur.com/PKMnZkz.jpg",
-                    Name = "Edward Kuo",
-                    Subtitle = "Developer",
-                    Skills = new [] { "dotnet", "azure" },
-                    Introduction = "是 Enterprise IT Manager、 Microsoft Regional Director、Microsoft Azure MVP、Azure DevOps Expert & Speaker 在不同的角色中學習用不同觀點看待軟體開發流程，不僅熱愛技術，也喜愛探索商業 Knowhow，在需求與技術中探尋合適的解決方案，思考適合產業雲端化架構設計，現在主要專注於雲端系統架構設計、工業 4.0 以及製造業的 AI 解決方案架構與設計，並在企業內建置的 DevOps 開發與維運合一的團隊，細節請參閱 https://medium.com/@kuoedward/about-me-f9641a5c4a3c",
-                    Experience =  new [] { "Microsoft MVP","Study4 社群成員" },
-                    Remark = ""
-                },
-                new Speaker{
-                    Avatar = "https://distudio.blob.core.windows.net/study4tw/poy_chang.jpg",
-                    Name = "Poy Chang",
-                    Subtitle = "Developer",
-                    Skills = new [] { "dotnet", "azure" },
-                    Introduction = "目前任職於全美100大私人企業，負責企業內部IT解決方案設計與開發，從前端開發到後端系統建構的過程中累積多元技術經驗，目前專注於 Angular、ASP.NET Core、Azure 技術研究，經常將經驗發表個人部落格，分享各項技術實務。",
-                    Experience =  new [] { "Microsoft MVP", "Study4 社群成員", "Angular Taiwan 社群成員", "2019 廣州 Global Azure Bootcamp 講師" },
-                    Remark = ""
-                },
-                new Speaker{
-                    Avatar = "https://i.imgur.com/PKMnZkz.jpg",
-                    Name = "Edward Kuo",
-                    Subtitle = "Developer",
-                    Skills = new [] { "dotnet", "azure" },
-                    Introduction = "是 Enterprise IT Manager、 Microsoft Regional Director、Microsoft Azure MVP、Azure DevOps Expert & Speaker 在不同的角色中學習用不同觀點看待軟體開發流程，不僅熱愛技術，也喜愛探索商業 Knowhow，在需求與技術中探尋合適的解決方案，思考適合產業雲端化架構設計，現在主要專注於雲端系統架構設計、工業 4.0 以及製造業的 AI 解決方案架構與設計，並在企業內建置的 DevOps 開發與維運合一的團隊，細節請參閱 https://medium.com/@kuoedward/about-me-f9641a5c4a3c",
-                    Experience =  new [] { "Microsoft MVP","Study4 社群成員" },
-                    Remark = ""
-                },
-                new Speaker{
-                    Avatar = "https://distudio.blob.core.windows.net/study4tw/poy_chang.jpg",
-                    Name = "Poy Chang",
-                    Subtitle = "Developer",
-                    Skills = new [] { "dotnet", "azure" },
-                    Introduction = "目前任職於全美100大私人企業，負責企業內部IT解決方案設計與開發，從前端開發到後端系統建構的過程中累積多元技術經驗，目前專注於 Angular、ASP.NET Core、Azure 技術研究，經常將經驗發表個人部落格，分享各項技術實務。",
-                    Experience =  new [] { "Microsoft MVP", "Study4 社群成員", "Angular Taiwan 社群成員", "2019 廣州 Global Azure Bootcamp 講師" },
-                    Remark = ""
-                },
-                new Speaker{
-                    Avatar = "https://i.imgur.com/PKMnZkz.jpg",
-                    Name = "Edward Kuo",
-                    Subtitle = "Developer",
-                    Skills = new [] { "dotnet", "azure" },
-                    Introduction = "是 Enterprise IT Manager、 Microsoft Regional Director、Microsoft Azure MVP、Azure DevOps Expert & Speaker 在不同的角色中學習用不同觀點看待軟體開發流程，不僅熱愛技術，也喜愛探索商業 Knowhow，在需求與技術中探尋合適的解決方案，思考適合產業雲端化架構設計，現在主要專注於雲端系統架構設計、工業 4.0 以及製造業的 AI 解決方案架構與設計，並在企業內建置的 DevOps 開發與維運合一的團隊，細節請參閱 https://medium.com/@kuoedward/about-me-f9641a5c4a3c",
-                    Experience =  new [] { "Microsoft MVP","Study4 社群成員" },
-                    Remark = ""
-                }
-            };
+        private readonly IRepository<SpeakerSet> _repo;
+
+        public SpeakerService(IDbManager dbManager)
+        {
+            _repo = dbManager.Repository<SpeakerSet>();
+        }
 
         public OperationResult<List<Speaker>> GetSpeakers()
         {
-            return new OperationResult<List<Speaker>>
+            try
             {
-                IsSuccess = true,
-                Message = $"Fetching speakers data.",
-                Result = SpeakerList
-            };
+                var separater = new string[] { ";" };
+                return new OperationResult<List<Speaker>>
+                {
+                    IsSuccess = true,
+                    Message = $"Succeeded to fetch speaker list data.",
+                    Result = _repo.Read().Select(p => MappingSpeakerSetToSpeaker(p)).ToList()
+                };
+            }
+            catch (Exception ex)
+            {
+                return new OperationResult<List<Speaker>>
+                {
+                    IsSuccess = false,
+                    Message = $"Failed to fetch speakers list data. {ex.Message}",
+                    Result = new List<Speaker>()
+                };
+            }
         }
 
-        public OperationResult AddSpeaker(Speaker speaker)
+        public OperationResult<Speaker> AddSpeaker(Speaker speaker)
         {
-            return new OperationResult
+            try
             {
-                IsSuccess = SpeakerList.Contains(speaker),
-                Message = SpeakerList.Contains(speaker)
-                    ? $"{speaker.Name} is existed."
-                    : $"{speaker.Name} is added."
+                var isSpeakerExist = _repo.Read().Any(p => p.Name == speaker.Name);
+                if (isSpeakerExist)
+                {
+                    return new OperationResult<Speaker>
+                    {
+                        IsSuccess = false,
+                        Message = $"Failed to Add the speaker. {speaker.Name} is existed.",
+                        Result = _repo.Read()
+                            .Select(p => MappingSpeakerSetToSpeaker(p))
+                            .SingleOrDefault(p => p.Name == speaker.Name)
+                    };
+                }
+                else
+                {
+                    _repo.Create(new SpeakerSet
+                    {
+                        Avatar = speaker.Avatar,
+                        Name = speaker.Name,
+                        Subtitle = speaker.Subtitle,
+                        Skills = speaker.Skills.Aggregate((pre, nxt) => $"{pre};{nxt}"),
+                        Experiences = speaker.Experiences.Aggregate((pre, nxt) => $"{pre};{nxt}"),
+                        Introduction = speaker.Introduction,
+                        Remark = speaker.Remark,
+                        CreateDate = DateTime.Now,
+                        ModifyDate = DateTime.Now
+                    });
+                    _repo.SaveChanges();
+                    return new OperationResult<Speaker>
+                    {
+                        IsSuccess = true,
+                        Message = $"Succeeded to add the speaker. {speaker.Name} is added.",
+                        Result = speaker
+                    };
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return new OperationResult<Speaker>
+                {
+                    IsSuccess = false,
+                    Message = $"Failed to add speaker. ${ex.Message} {ex.InnerException?.Message}",
+                    Result = speaker
+                };
+            }
+        }
+
+        public OperationResult UploadAvatarImage(string filename, Stream stream)
+        {
+            try
+            {
+                if (stream.Length > 0)
+                {
+                    var savePath = $"images\\avatar\\{filename}";
+                    using (var filestream = new FileStream(savePath, FileMode.Create))
+                    {
+                        stream.CopyTo(filestream);
+                    }
+                }
+                return new OperationResult
+                {
+                    IsSuccess = true,
+                    Message = $"Succeeded to upload avatar."
+                };
+            }
+            catch (Exception ex)
+            {
+                return new OperationResult
+                {
+                    IsSuccess = false,
+                    Message = $"Failed to upload avatar. {ex.Message}"
+                };
+            }
+        }
+
+        private static Speaker MappingSpeakerSetToSpeaker(SpeakerSet speakerSet)
+        {
+            var separater = new string[] { ";" };
+            return new Speaker
+            {
+                Avatar = speakerSet.Avatar,
+                Name = speakerSet.Name,
+                Subtitle = speakerSet.Subtitle,
+                Skills = speakerSet.Skills.Split(separater, StringSplitOptions.RemoveEmptyEntries),
+                Experiences = speakerSet.Experiences.Split(separater, StringSplitOptions.RemoveEmptyEntries),
+                Introduction = speakerSet.Introduction,
+                Remark = speakerSet.Remark
             };
         }
     }
@@ -79,6 +139,7 @@ namespace SpeakerPoolApp.Core.Services
     public interface ISpeakerService
     {
         OperationResult<List<Speaker>> GetSpeakers();
-        OperationResult AddSpeaker(Speaker speaker);
+        OperationResult<Speaker> AddSpeaker(Speaker speaker);
+        OperationResult UploadAvatarImage(string filename, Stream fileStream);
     }
 }

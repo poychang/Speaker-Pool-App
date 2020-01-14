@@ -20,6 +20,11 @@ namespace SpeakerPoolApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            //services.AddSqliteManager(options =>
+            services.AddDbManager(options =>
+            {
+                options.ConnectionString = Configuration["DbManagerOptions:ConnectionString"];
+            });
             services.AddSingleton<ISpeakerService, SpeakerService>();
         }
 

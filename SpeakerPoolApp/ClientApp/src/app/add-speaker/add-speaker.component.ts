@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import {
+  FormGroup,
+  FormControl,
+  Validators,
+  AbstractControl
+} from '@angular/forms';
 import { SpeakerService } from '../services/speaker.service';
 
 @Component({
@@ -22,10 +27,11 @@ export class AddSpeakerComponent implements OnInit {
       avatar: new FormControl(''),
       name: new FormControl('', [Validators.required]),
       subtitle: new FormControl(''),
-      skill: new FormControl(''),
+      skill: new FormControl('', [Validators.maxLength(30)]),
       skills: new FormControl([], [Validators.required]),
       introduction: new FormControl(''),
-      experience: new FormControl([]),
+      experience: new FormControl('', [Validators.maxLength(30)]),
+      experiences: new FormControl([]),
       remark: new FormControl('')
     });
   }
@@ -41,19 +47,49 @@ export class AddSpeakerComponent implements OnInit {
   }
 
   public addSkill = () => {
-    const skill = this.newSpeakerForm.get('skill').value as string;
-    const skills = this.newSpeakerForm.get('skills').value as string[];
-    this.newSpeakerForm.get('skill').setValue('');
-
-    if (skills.find(s => s === skill) || skill === '') {
-      return;
-    } else {
-      this.newSpeakerForm.get('skills').setValue([...skills, skill]);
-    }
+    this.addItemToSet(
+      this.newSpeakerForm.get('skill'),
+      this.newSpeakerForm.get('skills')
+    );
   };
 
+  public delSkill = skill => {
+    this.delItemInSet(skill, this.newSpeakerForm.get('skills'));
+  };
+
+  public addExperience = () => {
+    this.addItemToSet(
+      this.newSpeakerForm.get('experience'),
+      this.newSpeakerForm.get('experiences')
+    );
+  };
+
+  public delExperience = experience => {
+    this.delItemInSet(experience, this.newSpeakerForm.get('experiences'));
+  };
+
+  private addItemToSet(item: AbstractControl, set: AbstractControl) {
+    const itemValue = item.value as string;
+    const setValue = set.value as string[];
+    item.setValue('');
+
+    if (setValue.find(s => s === itemValue) || itemValue === '') {
+      return;
+    } else {
+      set.setValue([...setValue, itemValue]);
+    }
+  }
+
+  private delItemInSet(item: string, set: AbstractControl) {
+    const itemValue = item;
+    const setValue = set.value as string[];
+
+    if (setValue.find(s => s === itemValue) || itemValue === '') {
+      set.setValue([...setValue.filter(i => i !== itemValue)]);
+    }
+  }
+
   public onSubmit = () => {
-    console.log(this.newSpeakerForm.value);
     this.speakerService
       .addSpeaker(this.newSpeakerForm.value as Speaker)
       .subscribe();

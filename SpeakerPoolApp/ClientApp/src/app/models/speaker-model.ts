@@ -3,7 +3,7 @@ interface Speaker {
   name: string;
   subtitle: string;
   skills: string[];
+  experiences: string[];
   introduction: string;
-  experience: string[];
   remark: string;
 }

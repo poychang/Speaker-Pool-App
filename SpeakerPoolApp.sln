@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.29521.150
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpeakerPoolApp", "SpeakerPoolApp\SpeakerPoolApp.csproj", "{68CA0E95-1190-4FE6-88A2-72DC38E2CEE1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeakerPoolApp.Core", "SpeakerPoolApp.Core\SpeakerPoolApp.Core.csproj", "{23A17059-8547-4E4D-8EB6-E2A692FF0043}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpeakerPoolApp.Core", "SpeakerPoolApp.Core\SpeakerPoolApp.Core.csproj", "{23A17059-8547-4E4D-8EB6-E2A692FF0043}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeakerPoolApp.Data", "SpeakerPoolApp.Data\SpeakerPoolApp.Data.csproj", "{8093A7CC-FA45-422C-AA43-CE4ADAE2EE03}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{23A17059-8547-4E4D-8EB6-E2A692FF0043}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{23A17059-8547-4E4D-8EB6-E2A692FF0043}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{23A17059-8547-4E4D-8EB6-E2A692FF0043}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8093A7CC-FA45-422C-AA43-CE4ADAE2EE03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8093A7CC-FA45-422C-AA43-CE4ADAE2EE03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8093A7CC-FA45-422C-AA43-CE4ADAE2EE03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8093A7CC-FA45-422C-AA43-CE4ADAE2EE03}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 })
 export class SpeakersComponent implements OnInit {
   breadcrumb: Breadcrumb[];
-  speakers: Observable<Speaker[]>;
+  speakers$: Observable<Speaker[]>;
   isShowDetail = false;
 
   constructor(
@@ -22,7 +22,7 @@ export class SpeakersComponent implements OnInit {
     this.route.data.subscribe((data: RouteData) => {
       this.breadcrumb = data.breadcrumb;
     });
-    this.speakers = this.speakerService.getSpeakers();
+    this.speakers$ = this.speakerService.$getSpeakers();
   }
 
   public switchShowDetail() {

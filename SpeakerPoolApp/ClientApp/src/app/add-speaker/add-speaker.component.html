@@ -5,10 +5,12 @@
         <div class="column">
             <div class="card large">
                 <header class="card-header">
+
                     <p class="card-header-title">
                         Adding Speaker Information
                     </p>
                 </header>
+                <!-- {{ newSpeakerForm.value | json }} -->
                 <div class="card-content">
                     <form [formGroup]="newSpeakerForm" class="content" (ngSubmit)="onSubmit()">
                         <div class="field is-horizontal">
@@ -25,7 +27,8 @@
                                     <div class="row file">
                                         <label class="file-label">
                                             <input class="file-input" type="file" name="avatar-file"
-                                                formControlName="avatar" (change)="handleFileInput($event.target.files)">
+                                                formControlName="avatar"
+                                                (change)="handleFileInput($event.target.files)">
                                             <span class="file-cta">
                                                 <span class="file-icon">
                                                     <i class="fa fa-upload"></i>
@@ -47,7 +50,7 @@
                             <div class="field-body">
                                 <div class="field">
                                     <p class="control">
-                                        <input class="input" type="text" placeholder="" formControlName="name">
+                                        <input class="input" type="text" formControlName="name">
                                     </p>
                                 </div>
                             </div>
@@ -60,7 +63,7 @@
                             <div class="field-body">
                                 <div class="field">
                                     <p class="control">
-                                        <input class="input" type="text" placeholder="" formControlName="subtitle">
+                                        <input class="input" type="text" formControlName="subtitle">
                                     </p>
                                 </div>
                             </div>
@@ -72,17 +75,58 @@
                             </div>
                             <div class="field-body">
                                 <div class="field has-addons">
-                                    <p class="control">
-                                        <input class="input" type="text" placeholder="Add Tag" formControlName="skill">
+                                    <p class="control" style="margin-bottom: 0rem;">
+                                        <input class="input" type="text" formControlName="skill">
                                     </p>
                                     <p class="control">
-                                        <button class="button" type="button" (click)="addSkill()">Add</button>
-                                    </p>
-                                    <p class="control tags-result">
-                                        <span class="tag is-rounded is-primary is-medium"
-                                            *ngFor="let skill of newSpeakerForm.value.skills">{{ skill }}</span>
+                                        <button class="button" type="button" (click)="addSkill()"
+                                            [disabled]="!newSpeakerForm.get('skill').valid">Add</button>
                                     </p>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="field is-horizontal add-result" *ngIf="(newSpeakerForm.value.skills).length">
+                            <div class="field-label is-normal"></div>
+                            <div class="field-body">
+                                <table class="table is-bordered is-striped">
+                                    <tbody>
+                                        <tr *ngFor="let skill of newSpeakerForm.value.skills">
+                                            <td width="5%" (click)="delSkill(skill)"><i class="fa fa-times"></i></td>
+                                            <td>{{ skill }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="field is-horizontal">
+                            <div class="field-label is-normal">
+                                <label class="label">Experience</label>
+                            </div>
+                            <div class="field-body">
+                                <div class="field has-addons">
+                                    <p class="control" style="margin-bottom: 0rem;">
+                                        <input class="input" type="text" formControlName="experience">
+                                    </p>
+                                    <p class="control">
+                                        <button class="button" type="button" (click)="addExperience()"
+                                            [disabled]="!newSpeakerForm.get('experience').valid">Add</button>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field is-horizontal add-result" *ngIf="(newSpeakerForm.value.experiences).length">
+                            <div class="field-label is-normal"></div>
+                            <div class="field-body">
+                                <table class="table is-bordered is-striped">
+                                    <tbody>
+                                        <tr *ngFor="let experience of newSpeakerForm.value.experiences">
+                                            <td width="5%" (click)="delExperience(experience)"><i
+                                                    class="fa fa-times"></i></td>
+                                            <td>{{ experience }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
 
@@ -93,22 +137,7 @@
                             <div class="field-body">
                                 <div class="field">
                                     <p class="control">
-                                        <textarea class="textarea" rows="3" placeholder=""
-                                            formControlName="introduction"></textarea>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="field is-horizontal">
-                            <div class="field-label is-normal">
-                                <label class="label">Experience</label>
-                            </div>
-                            <div class="field-body">
-                                <div class="field">
-                                    <p class="control">
-                                        <textarea class="textarea" rows="3" placeholder=""
-                                            formControlName="experience"></textarea>
+                                        <textarea class="textarea" rows="3" formControlName="introduction"></textarea>
                                     </p>
                                 </div>
                             </div>
@@ -121,8 +150,7 @@
                             <div class="field-body">
                                 <div class="field">
                                     <p class="control">
-                                        <textarea class="textarea" rows="3" placeholder=""
-                                            formControlName="remark"></textarea>
+                                        <textarea class="textarea" rows="3" formControlName="remark"></textarea>
                                     </p>
                                 </div>
                             </div>

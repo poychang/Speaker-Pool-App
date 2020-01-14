@@ -11,13 +11,48 @@
         </div>
     </div>
     <div class="row columns is-multiline is-desktop">
-        <div class="column is-one-third" *ngFor="let speaker of speakers | async">
+        <div class="column is-one-third" *ngIf="!(speakers$ | async)?.length">
             <div class="card large">
                 <div class="card-content">
                     <div class="media">
                         <div class="media-left">
                             <figure class="image is-96x96">
-                                <img class="is-rounded" [src]="speaker.avatar" alt="Image">
+                                <img class="is-rounded" src="./assets/images/unknown-avatar.jpg" alt="Avatar">
+                            </figure>
+                        </div>
+                        <div class="media-content">
+                            <p class="title is-4 no-padding">SPEAKER NEEDED!</p>
+                            <p class="subtitle is-6 no-padding">show me speaker</p>
+                        </div>
+                    </div>
+                    <div class="content">
+                        <p class="no-padding"><strong>演講領域</strong></p>
+                        <p class="tags no-padding">
+                        </p>
+                    </div>
+                    <div class="content">
+                        <p class="no-padding"><strong>個人介紹</strong></p>
+                        <p class="no-padding"></p>
+                    </div>
+                    <div class="content">
+                        <p class="no-padding"><strong>經歷</strong></p>
+                        <p class="tags no-padding">
+                        </p>
+                    </div>
+                    <div class="content">
+                        <p class="no-padding"><strong>備註</strong></p>
+                        <p class="no-padding"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="column is-one-third" *ngFor="let speaker of speakers$ | async">
+            <div class="card large">
+                <div class="card-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <figure class="image is-96x96">
+                                <img class="is-rounded" [src]="speaker.avatar" alt="Avatar">
                             </figure>
                         </div>
                         <div class="media-content">
@@ -42,7 +77,6 @@
                             <span *ngFor="let experience of speaker.experience"
                                 class="tag is-rounded is-primary is-medium">{{ experience }}</span>
                         </p>
-                        <!-- <p class="no-padding">{{ speaker.experience }}</p> -->
                     </div>
                     <div class="content" *ngIf="isShowDetail">
                         <p class="no-padding"><strong>備註</strong></p>
