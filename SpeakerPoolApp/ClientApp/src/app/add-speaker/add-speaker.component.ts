@@ -15,7 +15,6 @@ import { SpeakerService } from '../services/speaker.service';
 })
 export class AddSpeakerComponent implements OnInit {
   breadcrumb: Breadcrumb[];
-  avatarImage = './assets/images/unknown-avatar.jpg';
   fileToUpload: File = null;
   newSpeakerForm: FormGroup;
 
@@ -24,7 +23,7 @@ export class AddSpeakerComponent implements OnInit {
     private speakerService: SpeakerService
   ) {
     this.newSpeakerForm = new FormGroup({
-      avatar: new FormControl(''),
+      avatar: new FormControl('unknown-avatar.jpg'),
       name: new FormControl('', [Validators.required]),
       subtitle: new FormControl(''),
       skill: new FormControl('', [Validators.maxLength(30)]),
@@ -44,6 +43,7 @@ export class AddSpeakerComponent implements OnInit {
 
   public handleFileInput(files: FileList) {
     this.fileToUpload = files.item(0);
+    this.newSpeakerForm.get('avatar').setValue(files.item(0).name);
   }
 
   public addSkill = () => {

@@ -21,13 +21,12 @@
                                 <div class="field">
                                     <div class="row">
                                         <figure class="image is-128x128">
-                                            <img class="is-rounded" [src]="avatarImage">
+                                            <img class="is-rounded" [src]="'./assets/images/' + newSpeakerForm.value.avatar">
                                         </figure>
                                     </div>
                                     <div class="row file">
                                         <label class="file-label">
                                             <input class="file-input" type="file" name="avatar-file"
-                                                formControlName="avatar"
                                                 (change)="handleFileInput($event.target.files)">
                                             <span class="file-cta">
                                                 <span class="file-icon">
